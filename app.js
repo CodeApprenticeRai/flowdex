@@ -57,17 +57,30 @@ app.get('/sightings', (req, res) => {
     });
 });
 
-
 app.post('/sightings', (req, res, next) => {
+  let query = `insert into sightings(name, person, location, sighted) values ( ?, ?, ?, ?)`;
+  // console.log( req.body );
+  db.run ( query, [ req.body.sighting.name, req.body.sighting.person, req.body.sighting.location, req.body.sighting.sighted ], (err) =>{
+    if (err){
+      // console.log(err);
+      res.status(500).json({ error: 'Looks like a bad db query.'});
+      return console.error( err.message );
+    }
+    console.log(`Row(s) updated: ${this.changes}`);
+    res.status(200).send();
+  });
+});
+
+app.put('/sightings', (req, res, next) => {
   if ( req.body.columnToUpdate == "id" ){
     res.status(403).json({ error: "Fuck you. : )"});
-    next(); 
+    next();
   }
 
   let query = `update sightings
     set ${ req.body.columnToUpdate } = ?
     where id = ?`;
-  db.run( query, [ req.body.updatedValue, req.body.sightingID ], (err) => {
+  db.run( query, [ req.body.updatedValue, req.body.sightingID ], (err) => { // #TODO: Change this to get all this information from the sighting object ( pass the object from the client )
     if (err){
       // console.log(err);
       res.status(500).json({ error: 'Looks like a bad db query.'});
