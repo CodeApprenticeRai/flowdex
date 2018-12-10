@@ -15,3 +15,5 @@ INSERT INTO sightings_copy(name, person, location, sighted) SELECT name, person,
 DROP TABLE sightings;
 
 ALTER TABLE sightings_copy RENAME TO sightings;
+
+PRAGMA foreign_keys = ON;
