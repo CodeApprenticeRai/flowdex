@@ -1,3 +1,17 @@
 body {
   background-color: #37FF96;
 }
+
+.card {
+  margin: 4rem;
+      background: white;
+      box-shadow: 2px 4px 25px rgba(0, 0, 0, .1);
+      border-radius: 7px;
+      overflow: hidden;
+      text-align: center;
+      transition: all .2s linear;
+}
+
+th {
+  width: 25%;
+}

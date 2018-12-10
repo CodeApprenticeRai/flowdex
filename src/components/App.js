@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import {} from '../components';
+import IndexEditor  from './IndexEditor';
 // import "../stylesheets/sheet1.css";
 
 
@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 class App extends Component {
   render(){
     return(
-      <div className='container-fluid'>
-        Southern Sierra Wildflower Club Flower Index
+      <div className='container'>
+        < IndexEditor />
       </div>
     );
   }
