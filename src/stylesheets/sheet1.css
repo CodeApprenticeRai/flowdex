@@ -18,7 +18,8 @@ th {
 
 table {
   border-collapse:separate;
-  border-spacing: 5rem 0.5rem;
+  /* border-spacing: 5rem 0.5rem; */
+  margin: 50px;
 }
 
 .table-title{
@@ -28,4 +29,19 @@ table {
   /* background: #DCFFE0; */
   border-bottom: 0.5px solid black;
   border-radius: 4px;
+}
+
+input {
+  /* display: block !important; */
+  overflow-wrap: break-word;
+  min-width: 80px;
+  min-height: 32px;
+  /* max-width: 500px; */
+
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  width: 100% !important;
+  /* border-radius: 0 !important; */
+  /* line-height: 1 !important; */
 }
