@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -40,7 +41,7 @@ let db = new sqlite3.Database('././databases/flowers.db', (err) => {
 
 
 // SQL Statesments
-var sql_all_sightings = `select * from sightings`;
+var sql_all_sightings = `select * from sightings order by sighted desc`;
 // var sql_update_sighting = `update sightings
 //   set ? = ?
 //   where id = ?`;
@@ -66,7 +67,7 @@ app.get('/sightings', (req, res) => {
 app.post('/sightings', (req, res, next) => {
   let query = `insert into sightings(name, person, location, sighted) values ( ?, ?, ?, ?)`;
   // console.log( req.body );
-  db.run ( query, [ req.body.sighting.name, req.body.sighting.person, req.body.sighting.location, req.body.sighting.sighted ], (err) =>{
+  db.run ( query, [ req.body.sighting.NAME, req.body.sighting.PERSON, req.body.sighting.LOCATION, req.body.sighting.SIGHTED ], (err) =>{
     if (err){
       // console.log(err);
       res.status(500).json({ error: 'Looks like a bad db query.'});
@@ -78,15 +79,14 @@ app.post('/sightings', (req, res, next) => {
 });
 
 app.put('/sightings', (req, res, next) => {
-  if ( req.body.columnToUpdate == "id" ){
-    res.status(403).json({ error: "Fuck you. : )"});
-    next();
-  }
-
+  console.log( req.body.sighting, req.body.sightingID );
   let query = `update sightings
-    set ${ req.body.columnToUpdate } = ?
-    where id = ?`;
-  db.run( query, [ req.body.updatedValue, req.body.sightingID ], (err) => { // #TODO: Change this to get all this information from the sighting object ( pass the object from the client )
+    set NAME=?,
+    PERSON=?,
+    LOCATION=?,
+    SIGHTED=?
+    where id=?`;
+  db.run( query, [ req.body.sighting.NAME, req.body.sighting.PERSON, req.body.sighting.LOCATION, req.body.sighting.SIGHTED, req.body.sightingID ], (err) => { // #TODO: Change this to get all this information from the sighting object ( pass the object from the client )
     if (err){
       // console.log(err);
       res.status(500).json({ error: 'Looks like a bad db query.'});
