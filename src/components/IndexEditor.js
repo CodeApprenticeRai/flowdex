@@ -18,15 +18,10 @@ class IndexEditor extends Component {
       return results.json();
     })
     .then( data => {
-      console.log( data );
+      // console.log( data );
       let sightings_jsx = data.map( (sighting) => {
         return(
-          <tr key={sighting.id}>
-            <td>{sighting.NAME}</td>
-            <td>{sighting.PERSON}</td>
-            <td>{sighting.LOCATION}</td>
-            <td>{sighting.SIGHTED}</td>
-          </tr>
+            < TableRow sighting={sighting} />
         )
       })
 
