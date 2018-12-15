@@ -13,6 +13,7 @@
   "author": "Tare Gaskin",
   "license": "ISC",
   "dependencies": {
+    "sqlite3": "^4.0.4",
     "babel-loader": "^8.0.4",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
@@ -23,6 +24,7 @@
     "react-dom": "^16.5.2"
   },
   "devDependencies": {
+    "morgan": "^1.9.1",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
