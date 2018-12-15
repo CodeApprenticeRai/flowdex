@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "wwwStart": "",
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "nodemon app.js",
     "build": "webpack --mode production",
-    "devStart": "",
+    "devStart": "webpack-dev-server --mode development --open --hot",
     "test": "mocha ./tests/test.js"
   },
   "author": "Tare Gaskin",

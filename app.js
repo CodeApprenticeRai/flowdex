@@ -52,7 +52,19 @@ var sql_all_sightings = `select * from sightings order by sighted desc`;
 
 
 
+
 // API Paths
+app.use( express.static('dist') )
+
+app.get('/', (req, res, next) => {
+  res.sendFile('./dist/index.html', {root: __dirname });
+})
+
+// app.listen( 8080, console.log("app listening on localhost:8080") );
+
+
+
+
 app.get('/sightings', (req, res) => {
   let query  = sql_all_sightings
   db.all( query, [], (err, rows) => {
