@@ -54,7 +54,9 @@ var sql_all_sightings = `select * from sightings order by sighted desc`;
 
 
 // API Paths
-app.use( express.static('dist') )
+// app.use( express.static('dist') )
+
+app.get('/index_bundle.js', (req, res, next ) => res.sendFile('./dist/index_bundle.js', {root: __dirname}));
 
 app.get('/', (req, res, next) => {
   res.sendFile('./dist/index.html', {root: __dirname });
