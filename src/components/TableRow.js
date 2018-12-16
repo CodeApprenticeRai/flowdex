@@ -60,7 +60,7 @@ class TableRow  extends Component {
     this.setState( updatedState );
 
     if ( (this.state.sightingID != null) && (this.state.sightingID != undefined) ){
-        fetch('http://localhost:3003/sightings', {
+        fetch('http://apps.tare-gaskin.io/sightings', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -72,7 +72,7 @@ class TableRow  extends Component {
         .then( res => console.log( res ) )
     }
     else {
-      fetch('http://localhost:3003/sightings', {
+      fetch('http://apps.tare-gaskin.io/sightings', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
