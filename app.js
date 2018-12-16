@@ -56,7 +56,7 @@ var sql_all_sightings = `select * from sightings order by sighted desc`;
 // API Paths
 app.use( express.static('dist') )
 
-app.get('/', (req, res, next) => {
+app.get('/flowdex', (req, res, next) => {
   res.sendFile('./dist/index.html', {root: __dirname });
 })
 
@@ -65,7 +65,7 @@ app.get('/', (req, res, next) => {
 
 
 
-app.get('/sightings', (req, res) => {
+app.get('/flowdex/sightings', (req, res) => {
   let query  = sql_all_sightings
   db.all( query, [], (err, rows) => {
       if (err){
@@ -76,7 +76,7 @@ app.get('/sightings', (req, res) => {
     });
 });
 
-app.post('/sightings', (req, res, next) => {
+app.post('/flowdex/sightings', (req, res, next) => {
   let query = `insert into sightings(name, person, location, sighted) values ( ?, ?, ?, ?)`;
   // console.log( req.body );
   db.run ( query, [ req.body.sighting.NAME, req.body.sighting.PERSON, req.body.sighting.LOCATION, req.body.sighting.SIGHTED ], (err) =>{
@@ -90,7 +90,7 @@ app.post('/sightings', (req, res, next) => {
   });
 });
 
-app.put('/sightings', (req, res, next) => {
+app.put('/flowdex/sightings', (req, res, next) => {
   console.log( req.body.sighting, req.body.sightingID );
   let query = `update sightings
     set NAME=?,
