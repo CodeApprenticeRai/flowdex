@@ -111,4 +111,9 @@ app.put('/sightings', (req, res, next) => {
   });
 });
 
+app.delete('/sightings', (req, res, next) => {
+  console.log("The user is requsting to delete a record!");
+  // Add required logic to delete a record.
+});
+
 app.listen( port, console.log(`App running on http://localhost:${port}`) );
