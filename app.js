@@ -113,7 +113,19 @@ app.put('/sightings', (req, res, next) => {
 
 app.delete('/sightings', (req, res, next) => {
   console.log("The user is requsting to delete a record!");
-  // Add required logic to delete a record.
+  // Get SightingID
+  let sightingID = req.body.sightingID;
+  // Remove from Database Query
+  let query = `DELETE FROM sightings WHERE ID = ?`;
+  db.run(query, [sightingID], (err) => {
+    if(err) {
+      res.status(500).json({error: 'Looks like a bad db query.'})
+      return console.error(err.message);
+    }
+    // Send Confirmation
+    console.log(`Row(s) updated: ${this.changes}`);
+    res.status(200).send();
+  });
 });
 
 app.listen( port, console.log(`App running on http://localhost:${port}`) );
