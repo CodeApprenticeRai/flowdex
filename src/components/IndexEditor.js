@@ -47,7 +47,7 @@ class IndexEditor extends Component {
     // }
 
   componentDidMount(){
-    let url = "http://apps.tare-gaskin.io/sightings"
+    let url = "http://localhost:3003/sightings"
     fetch(url)
     .then( results => {
       return results.json();
