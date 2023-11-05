@@ -17,6 +17,7 @@ class TableRow  extends Component {
     this.handleFieldEdit = this.handleFieldEdit.bind(this);
     this.handleConfirmEdit = this.handleConfirmEdit.bind(this);
     this.handleCancelEdit = this.handleCancelEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   initiateEdit(event){
@@ -60,7 +61,7 @@ class TableRow  extends Component {
     this.setState( updatedState );
 
     if ( (this.state.sightingID != null) && (this.state.sightingID != undefined) ){
-        fetch('http://apps.tare-gaskin.io/sightings', {
+        fetch('http://localhost:3003/sightings', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -72,7 +73,7 @@ class TableRow  extends Component {
         .then( res => console.log( res ) )
     }
     else {
-      fetch('http://apps.tare-gaskin.io/sightings', {
+      fetch('http://localhost:3003/sightings', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -91,6 +92,22 @@ class TableRow  extends Component {
 
   }
 
+  handleDelete(event){
+    fetch('http://localhost:3003/sightings', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            sightingID: this.state.sightingID,
+            sighting: this.state.sighting
+          })
+      })
+      .then( res => res.text() )
+      .then( res => console.log( res ) )
+
+      this.props.onSightingModificationConfirmed(event);
+      window.location.reload();
+  }
+
   render(){
     if ( (this.state.sightingID != null) && (this.state.sightingID != undefined) ){
       return(
@@ -100,7 +117,10 @@ class TableRow  extends Component {
           <td><input type="text" class="form-control" fieldname="PERSON" value={this.state.sighting.PERSON} disabled={ !this.state.isBeingEdited } onChange={this.handleFieldEdit}/></td>
           <td><input type="text" class="form-control" fieldname="SIGHTED" value={this.state.sighting.SIGHTED} disabled={ !this.state.isBeingEdited } onChange={this.handleFieldEdit}/></td>
         { !this.state.isBeingEdited ?
-            <button type="button" className="btn btn-light" onClick={this.initiateEdit}>Edit Sighting</button>
+            <div>
+              <button type="button" className="btn btn-light" onClick={this.initiateEdit}>Edit Sighting</button>
+              <button type="button" className="btn btn-danger" onClick={this.handleDelete}>Delete Sighting</button>
+            </div> 
             :
             <>
             <input type="submit" className="btn btn-success" onClick={this.handleConfirmEdit} value="Confirm"/>
